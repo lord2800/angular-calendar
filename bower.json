@@ -1,0 +1,23 @@
+{
+  "name": "angular-calendar",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lord2800/angular-calendar",
+  "authors": [
+    "Jeff Hubbard <lord2800@gmail.com>"
+  ],
+  "description": "A calendar control built entirely on Angular.js",
+  "main": "dist/calendar.js",
+  "keywords": [
+    "angular",
+    "calendar",
+    "angular.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
