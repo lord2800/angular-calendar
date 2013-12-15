@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="jh.calendar.demo" ng-controller="CalendarController">
+	<head>
+		<script src="http://code.angularjs.org/1.2.5/angular.js"></script>
+		<script src="/dist/calendar.js"></script>
+		<script>
+			angular.module('jh.calendar.demo', ['jh.calendar'])
+				.controller('CalendarController', function ($scope) {
+					$scope.startMonth = new Date(2013, 10);
+					$scope.nextMonth = function () {
+						$scope.startMonth = new Date(2013, $scope.startMonth.getMonth()+1);
+					};
+					$scope.prevMonth = function () {
+						$scope.startMonth = new Date(2013, $scope.startMonth.getMonth()-1);
+					};
+					$scope.alertDay = function (day) { alert('You clicked ' + day); };
+				});
+		</script>
+
+		<style type="text/css">
+			body { height: 1080px; }
+
+			.calendar {
+				width: 640px;
+				height: 480px;
+				font-size: 62.5%;
+			}
+			.calendar .header {
+				text-align: center;
+				font-size: 5em;
+				border: 1px solid #000;
+			}
+			.calendar .day-name {
+				text-align: center;
+				font-size: 1.5em;
+				width: 14.1%;
+				display: inline-block;
+				border-left: 1px solid #000;
+			}
+			.calendar .day-name.last {
+				border-right: 1px solid #000;
+			}
+			.calendar .day-name.first {
+			}
+
+			.calendar .calendar-body {
+				height: 100%;
+				border: 1px solid #000;
+			}
+			.calendar .week {
+				height: 19.9%;
+				border-bottom: 1px solid #000;
+			}
+			.calendar .week.first {
+			}
+			.calendar .week.last {
+				border-bottom: none;
+			}
+			.calendar .day {
+				text-align: left;
+				width: 14.14%;
+				height: 100%;
+				display: inline-block;
+				border-left: 1px solid #000;
+			}
+			.calendar .day.first {
+				border-left: none;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Calendar Demo Page</h1>
+		<a ng-click="prevMonth()">Prev Month</a> | <a ng-click="nextMonth()">Next Month</a>
+		<calendar for="startMonth" click="alertDay"></calendar>
+	</body>
+</html>
