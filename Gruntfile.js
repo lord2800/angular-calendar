@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask('package', ['concat', 'uglify']);
+	grunt.registerTask('package', ['jshint', 'concat', 'uglify']);
 	grunt.registerTask('test', ['karma:unit']);
 	grunt.registerTask('default', ['connect:serve', 'watch']);
 };
