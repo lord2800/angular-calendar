@@ -5,7 +5,8 @@ A calendar control written specifically for Angular.js
 
 This project uses `grunt` to manage tasks and `bower`. After checkout, please run `npm install` and `bower install`
 
-=== Available targets ===
+Available targets
+=================
 
 * default - Start a connect server and watch all files for building/testing
 * test - Run the unit tests

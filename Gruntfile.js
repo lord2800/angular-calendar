@@ -18,9 +18,9 @@ module.exports = function (grunt) {
 			options: {
 				basePath: '',
 				files: [
-					'http://code.angularjs.org/1.2.5/angular.js',
-					'http://code.angularjs.org/1.2.5/i18n/angular-locale_en-us.js',
-					'http://code.angularjs.org/1.2.5/angular-mocks.js',
+					'bower_components/angular/angular.js',
+					'bower_components/angular-i18n/angular-locale_en-us.js',
+					'bower_components/angular-mocks/angular-mocks.js',
 					'dist/calendar.js', 'test/*.js'],
 				preprocessors: { 'dist/calendar.js': ['coverage'] },
 				frameworks: ['jasmine'],

@@ -22,5 +22,12 @@
   ],
   "dependencies": {
     "angular": "~1.2.5"
+  },
+  "devDependencies": {
+    "angular-i18n": "~1.2.5",
+    "angular-mocks": "~1.2.5"
+  },
+  "resolutions": {
+    "angular": "~1.2.5"
   }
 }
