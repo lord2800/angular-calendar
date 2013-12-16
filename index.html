@@ -17,46 +17,60 @@
 				});
 		</script>
 
-		<style type="text/css">
-			body { height: 1080px; }
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
+		<style type="text/css">
 			.calendar {
 				width: 640px;
 				height: 480px;
+				font-family: 'Roboto';
 				font-size: 62.5%;
+				border: 1px solid #000;
+				border-radius: 10px;
 			}
 			.calendar .header {
 				text-align: center;
 				font-size: 5em;
-				border: 1px solid #000;
+			}
+
+			.calendar .week-header {
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+				background-color: #eee;
 			}
 
 			.calendar .day-name {
 				text-align: center;
 				font-size: 1.5em;
-				width: 14.1%;
+				width: 14.14%;
 				display: inline-block;
-				border-left: 1px solid #000;
+				border-right: 1px solid #000;
 			}
 			.calendar .day-name.last {
-				border-right: 1px solid #000;
+				border-right: none;
 			}
 			.calendar .day-name.first {
 			}
 
 			.calendar .calendar-body {
-				height: 100%;
-				border: 1px solid #000;
+				height: 84%;
 			}
 
 			.calendar .week {
-				height: 19.9%;
-				border-bottom: 1px solid #000;
+				height: 19.3%;
+				border-top: 1px solid #000;
+			}
+			.calendar .week.odd {
+				background-color: lightblue;
+			}
+			.calendar .week.even {
+				background-color: antiquewhite;
 			}
 			.calendar .week.first {
+				border-top: none;
 			}
 			.calendar .week.last {
-				border-bottom: none;
+				border-radius: 0 0 10px 10px;
 			}
 
 			.calendar .day {
