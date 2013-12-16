@@ -8,7 +8,7 @@ branches:
 
 env:
   global:
-    secure: "Piqw3uPTC9MevxycWz8KNNyItykYq3Yvt9o0in1QpxI9hr8NBS2JJtFtEdOpQi01VaBwWmSLh7lmBBnQDBcuS3tYQjlEIB0a/lfbPxLj6w1B7slJkv//08kXs3sutegMuhv0pXqiN2155G0V5N9dx5VtqKoD/znp6IjF7MmzX/Q="
+    secure: "CVdgvBm1XI2itnZQGakTnq6rmwOfYv8j9E7MKy5dF0gQ46kRVNmoMKSQqaRvIVsnXbv+BVrL6Qa+1BGJUd74n2RJOad5c0ikfxRR7Mt9/x3MyF88ru4dL85qWx4bU6kyq85FkF/7hUtLdaOk/iL1HdqBk842Kx45zdhXD9xL7Z4="
 
 install:
   - npm install -g grunt-cli bower

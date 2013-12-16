@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 				base: 'dist',
 				message: 'Auto-commit via grunt [ci-skip]',
 				repo: 'https://' + process.env.GH_OAUTH_TOKEN + '@github.com/lord2800/angular-calendar.git',
-				silent: false
+				silent: true
 			},
 			src: ['**']
 		}
