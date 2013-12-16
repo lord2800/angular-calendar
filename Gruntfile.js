@@ -3,8 +3,6 @@ module.exports = function (grunt) {
 		grunt.loadNpmTasks('grunt-' + mod);
 	});
 
-	var gh_oauth_token = process.env['GH_OAUTH_TOKEN'];
-
 	grunt.initConfig({
 		connect: { serve: { options: { port: 9000, keepalive: false, livereload: 23489, base: ['.', '/tmp/calendar-coverage'], debug: true } } },
 		jshint: { options: { jshintrc: '.jshintrc' }, calendar: { files: [{ src: '{src,test}/*.js' }] } },
@@ -52,8 +50,8 @@ module.exports = function (grunt) {
 			options: {
 				base: 'dist',
 				message: 'Auto-commit via grunt [ci-skip]',
-				repo: 'https://' + gh_oauth_token + '@github.com/lord2800/angular-calendar.git',
-				silent: true
+				repo: 'https://' + process.env.GH_OAUTH_TOKEN + '@github.com/lord2800/angular-calendar.git',
+				silent: false
 			},
 			src: ['**']
 		}
