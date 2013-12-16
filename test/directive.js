@@ -71,4 +71,12 @@ describe('Calendar Directive', function () {
 		expect(isolate.weeks[4].days[5]).toBeUndefined();
 		expect(isolate.weeks[4].days[6]).toBeUndefined();
 	});
+
+	it('should ignore invalid objects as dates and use the current date instead', inject(function ($locale) {
+		local.date = 'abc';
+		local.$digest();
+		var now = new Date();
+		expect(isolate.month).toBe($locale.DATETIME_FORMATS.MONTH[now.getMonth()]);
+		expect(isolate.year).toBe(now.getFullYear());
+	}));
 });

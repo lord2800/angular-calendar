@@ -7,7 +7,8 @@ mod.directive('calendar', function ($locale) {
 		scope: { 'for': '=', options: '=', click: '=' },
 		link: function (scope) {
 			scope.$watch('for', function () {
-				var start = scope['for'] && new Date(scope['for'].getTime()) || new Date();
+				var date = scope['for'];
+				var start = (date instanceof Date && new Date(date.getTime())) || new Date();
 				start.setDate(1);
 				var nextMonth = (start.getMonth() + 1) % 12;
 
