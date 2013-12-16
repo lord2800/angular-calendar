@@ -3,9 +3,9 @@ Angular Calendar
 
 [![Build Status](https://travis-ci.org/lord2800/angular-calendar.png?branch=master)](https://travis-ci.org/lord2800/angular-calendar)
 
-A calendar control written specifically for Angular.js
+A calendar control written specifically for Angular.js. [View the demo](http://lord2800.github.io/angular-calendar).
 
-This project uses `grunt` to manage tasks and `bower`. After checkout, please run `npm install` and `bower install`
+This project uses `grunt` to manage tasks and `bower`. After checkout, please run `npm install` and `bower install`.
 
 Available targets
 =================
