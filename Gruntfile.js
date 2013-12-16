@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 	});
 
 	grunt.initConfig({
-		connect: { serve: { options: { port: 9000, keepalive: false, livereload: 23489, base: ['.', '/tmp/calendar-coverage'], debug: true } } },
+		connect: { serve: { options: { port: 9000, keepalive: false, livereload: 23489, base: ['dist', '/tmp/calendar-coverage'], debug: true } } },
 		jshint: { options: { jshintrc: '.jshintrc' }, calendar: { files: [{ src: '{src,test}/*.js' }] } },
 		concat: {
 			calendar: {
