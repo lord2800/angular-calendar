@@ -30,6 +30,7 @@
 				font-size: 5em;
 				border: 1px solid #000;
 			}
+
 			.calendar .day-name {
 				text-align: center;
 				font-size: 1.5em;
@@ -47,6 +48,7 @@
 				height: 100%;
 				border: 1px solid #000;
 			}
+
 			.calendar .week {
 				height: 19.9%;
 				border-bottom: 1px solid #000;
@@ -56,6 +58,7 @@
 			.calendar .week.last {
 				border-bottom: none;
 			}
+
 			.calendar .day {
 				text-align: left;
 				width: 14.14%;
@@ -66,11 +69,15 @@
 			.calendar .day.first {
 				border-left: none;
 			}
+			.calendar .day.last {
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Calendar Demo Page</h1>
+
 		<a ng-click="prevMonth()">Prev Month</a> | <a ng-click="nextMonth()">Next Month</a>
+
 		<calendar for="startMonth" click="alertDay"></calendar>
 	</body>
 </html>
