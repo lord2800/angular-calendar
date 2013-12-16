@@ -14,6 +14,6 @@ var calendarTemplate = [
 	'</div>'
 ].join('\n');
 
-mod.run(['$templateCache', function ($templateCache) {
+mod.run(function ($templateCache) {
 	$templateCache.put('calendar.tmpl', calendarTemplate);
-}]);
+});

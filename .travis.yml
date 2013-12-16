@@ -6,6 +6,10 @@ branches:
   only:
     - master
 
+env:
+  global:
+    secure: EnXz1HcYR64YCevWTmFIyWmS5UwA2j2tQsFcWPq9y+fiDXmPNgpOnNVsTNOFmTEw23V9HBOckonNAWAoSKauQGaS9ZjP26jHma/f2U+oeCwoWdZsjno6qr12YCjlJKpPc7FFnA8KG6CccI3+aEuP3gLYnf2/xKNs4Ggve+0yBrw=
+
 install:
   - npm install -g grunt-cli bower
   - npm install
@@ -14,3 +18,8 @@ install:
 script:
   - grunt package
   - grunt test
+
+after_success:
+  - grunt gh-pages
+  - cd .grunt/grunt-gh-pages/gh-pages/src
+  - git push "https://${GH_OAUTH_TOKEN}@github.com/lord2800/angular-calendar" HEAD:gh-pages > /dev/null 2>&1

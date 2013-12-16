@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	['contrib-jshint', 'contrib-connect', 'contrib-concat', 'contrib-uglify', 'contrib-watch', 'contrib-clean', 'karma'].forEach(function (mod) {
+	['contrib-jshint', 'contrib-connect', 'contrib-concat', 'contrib-uglify', 'contrib-watch', 'contrib-clean', 'ngmin', 'karma', 'gh-pages'].forEach(function (mod) {
 		grunt.loadNpmTasks('grunt-' + mod);
 	});
 
@@ -12,15 +12,16 @@ module.exports = function (grunt) {
 				files: [{ src: ['src/module.js', 'src/*.js'], dest: 'dist/calendar.js' }]
 			}
 		},
+		ngmin: { calendar: { files: [{ src: 'dist/calendar.js', dest: 'dist/calendar.js' }] } },
 		uglify: { calendar: { files: [{ src: 'dist/calendar.js', dest: 'dist/calendar.min.js' }] } },
 		clean: { calendar: { files: [{ src: ['dist/calendar.js', 'dist/calendar.min.js'] }] } },
 		karma: {
 			options: {
 				basePath: '',
 				files: [
-					'bower_components/angular/angular.js',
-					'bower_components/angular-i18n/angular-locale_en-us.js',
-					'bower_components/angular-mocks/angular-mocks.js',
+					'dist/bower_components/angular/angular.js',
+					'dist/bower_components/angular-i18n/angular-locale_en-us.js',
+					'dist/bower_components/angular-mocks/angular-mocks.js',
 					'dist/calendar.js', 'test/*.js'],
 				preprocessors: { 'dist/calendar.js': ['coverage'] },
 				frameworks: ['jasmine'],
@@ -44,10 +45,19 @@ module.exports = function (grunt) {
 			calendar: { files: ['src/*.js'], tasks: ['jshint', 'concat'] },
 			test: { files: ['test/*.js'], tasks: ['karma:unit'] },
 			livereload: { files: ['dist/*'], tasks: [] }
+		},
+		'gh-pages': {
+			options: {
+				base: 'dist',
+				message: 'Auto-commit via grunt [ci-skip]',
+				silent: true,
+				push: false
+			},
+			src: ['**']
 		}
 	});
 
-	grunt.registerTask('package', ['jshint', 'concat', 'uglify']);
+	grunt.registerTask('package', ['jshint', 'concat', 'ngmin', 'uglify']);
 	grunt.registerTask('test', ['karma:unit']);
 	grunt.registerTask('default', ['connect:serve', 'watch']);
 };
