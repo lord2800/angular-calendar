@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-	['contrib-jshint', 'contrib-connect', 'contrib-concat', 'contrib-uglify', 'contrib-watch', 'contrib-clean', 'ngmin', 'karma', 'gh-pages'].forEach(function (mod) {
+	['contrib-jshint', 'contrib-connect', 'contrib-concat', 'contrib-uglify', 'contrib-watch', 'contrib-clean', 'ngmin', 'karma', 'gh-pages', 'karma-coveralls'].forEach(function (mod) {
 		grunt.loadNpmTasks('grunt-' + mod);
 	});
 
@@ -27,7 +27,7 @@ module.exports = function (grunt) {
 				frameworks: ['jasmine'],
 				exclude: [],
 				reporters: ['dots', 'coverage'],
-				coverageReporter: { reporters: [{ type: 'html' }], dir: '/tmp/calendar-coverage' },
+				coverageReporter: { reporters: [{ type: 'html' }, { type: 'lcov' }], dir: '/tmp/calendar-coverage' },
 				port: 43783,
 				logLevel: 'INFO',
 				autoWatch: false,
@@ -40,6 +40,7 @@ module.exports = function (grunt) {
 				autoWatch: true
 			}
 		},
+		coveralls: { options: { debug: true, coverage_dir: '/tmp/calendar-coverage' } },
 		watch: {
 			options: { atBegin: true, livereload: 23489 },
 			calendar: { files: ['src/*.js'], tasks: ['jshint', 'concat'] },
