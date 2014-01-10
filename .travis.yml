@@ -20,4 +20,4 @@ script:
   - grunt test
 
 after_success:
-  - grunt gh-pages
+  - grunt docs

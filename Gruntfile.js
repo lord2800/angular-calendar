@@ -64,5 +64,6 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('package', ['jshint', 'concat', 'ngmin', 'uglify']);
 	grunt.registerTask('test', ['karma:unit']);
+	grunt.registerTask('docs', ['coveralls', 'gh-pages']);
 	grunt.registerTask('default', ['connect:serve', 'watch']);
 };
