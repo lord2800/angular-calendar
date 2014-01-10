@@ -1,7 +1,7 @@
 Angular Calendar
 ================
 
-[![Build Status](https://travis-ci.org/lord2800/angular-calendar.png?branch=master)](https://travis-ci.org/lord2800/angular-calendar)
+[![Build Status](https://travis-ci.org/lord2800/angular-calendar.png?branch=master)](https://travis-ci.org/lord2800/angular-calendar) ![Coverage Status](https://coveralls.io/repos/lord2800/angular-calendar/badge.png)](https://coveralls.io/r/lord2800/angular-calendar)
 
 A calendar control written specifically for Angular.js. [View the demo](http://lord2800.github.io/angular-calendar).
 
