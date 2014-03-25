@@ -1,6 +1,8 @@
 (function () {
   'use strict';
+  /* exported mod */
   var mod = angular.module('jh.calendar', []);
+  /* global mod */
   mod.directive('calendar', [
     '$locale',
     function ($locale) {
@@ -10,7 +12,7 @@
         scope: {
           'for': '=',
           options: '=',
-          click: '='
+          onClick: '='
         },
         link: function (scope) {
           scope.$watch('for', function () {
@@ -35,10 +37,23 @@
               week.days.push(undefined);
             }
           });
+          var currentDay = 0;
+          scope.clickDay = function (day) {
+            if (day !== undefined) {
+              currentDay = day;
+              if (angular.isFunction(scope.onClick)) {
+                scope.onClick(day);
+              }
+            }
+          };
+          scope.isSelected = function (day) {
+            return currentDay === day;
+          };
         }
       };
     }
   ]);
+  /* global mod */
   var calendarTemplate = [
       '<div class="calendar">',
       '<div class="header">{{month}} {{year}}</div>',
@@ -47,7 +62,7 @@
       '</div>',
       '<div class="calendar-body">',
       '<div ng-repeat="week in weeks track by $index" class="week" ng-class="{first: $first, last: $last, odd: $odd, even: $even}">',
-      '<span ng-repeat="day in week.days track by $index" class="day" ng-class="{first: $first, last: $last}" ng-click="day != undefined && click(day)">{{day}}&nbsp;</span>',
+      '<span ng-repeat="day in week.days track by $index" class="day" ng-class="{first: $first, last: $last, active: isSelected(day)}" ng-click="clickDay(day)">{{day}}&nbsp;</span>',
       '</div>',
       '</div>',
       '</div>'
