@@ -6,8 +6,9 @@ describe('Calendar Directive', function () {
 	beforeEach(inject(function ($compile, $rootScope) {
 		local = $rootScope.$new();
 		local.date = new Date(2013, 0);
+		local.doSomething = jasmine.createSpy();
 
-		el = angular.element('<calendar for="date"></calendar>');
+		el = angular.element('<calendar for="date" on-click="doSomething"></calendar>');
 		$compile(el)(local);
 		local.$digest();
 		isolate = el.isolateScope();
@@ -79,4 +80,37 @@ describe('Calendar Directive', function () {
 		expect(isolate.month).toBe($locale.DATETIME_FORMATS.MONTH[now.getMonth()]);
 		expect(isolate.year).toBe(now.getFullYear());
 	}));
+
+	it('should say a date is selected if it has been clicked', function () {
+		isolate.clickDay(1);
+		isolate.$digest();
+		expect(isolate.isSelected(1)).toBe(true);
+		expect(isolate.isSelected(2)).toBe(false);
+		expect(el.find('.week.first .day:nth-child(3)').hasClass('active')).toBe(true);
+	});
+
+	it('should ignore the handler if it\'s undefined', function () {
+		var spy = local.doSomething;
+		local.doSomething.reset();
+		local.doSomething = undefined;
+		local.$digest();
+		isolate.clickDay(1);
+		expect(spy).not.toHaveBeenCalled();
+		local.doSomething = spy;
+	});
+
+	it('should ignore calls with an undefined day', function () {
+		isolate.clickDay(1);
+		local.doSomething.reset();
+		expect(isolate.isSelected(1)).toBe(true);
+		isolate.clickDay(undefined);
+		expect(local.doSomething).not.toHaveBeenCalled();
+		expect(isolate.isSelected(1)).toBe(true);
+	});
+
+	it('should pass clicks to the handler', function () {
+		local.doSomething.reset();
+		isolate.clickDay(1);
+		expect(local.doSomething).toHaveBeenCalledWith(1);
+	});
 });

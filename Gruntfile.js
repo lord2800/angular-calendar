@@ -19,6 +19,7 @@ module.exports = function (grunt) {
 			options: {
 				basePath: '',
 				files: [
+					'http://code.jquery.com/jquery-2.1.0.js',
 					'dist/bower_components/angular/angular.js',
 					'dist/bower_components/angular-i18n/angular-locale_en-us.js',
 					'dist/bower_components/angular-mocks/angular-mocks.js',

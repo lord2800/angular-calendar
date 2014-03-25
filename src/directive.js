@@ -4,7 +4,7 @@ mod.directive('calendar', function ($locale) {
 	return {
 		restrict: 'E',
 		templateUrl: 'calendar.tmpl',
-		scope: { 'for': '=', options: '=', click: '=' },
+		scope: { 'for': '=', options: '=', onClick: '=' },
 		link: function (scope) {
 			scope.$watch('for', function () {
 				var date = scope['for'];
@@ -33,6 +33,20 @@ mod.directive('calendar', function ($locale) {
 					week.days.push(undefined);
 				}
 			});
+
+			var currentDay = 0;
+
+			scope.clickDay = function (day) {
+				if(day !== undefined) {
+					currentDay = day;
+					if(angular.isFunction(scope.onClick)) {
+						scope.onClick(day);
+					}
+				}
+			};
+			scope.isSelected = function (day) {
+				return currentDay === day;
+			};
 		}
 	};
 });
