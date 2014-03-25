@@ -13,7 +13,7 @@
 					$scope.prevMonth = function () {
 						$scope.startMonth = new Date(2013, $scope.startMonth.getMonth()-1);
 					};
-					$scope.alertDay = function (day) { alert('You clicked ' + day); };
+					$scope.alertDay = function (day) { alert('You clicked ' + $scope.startMonth.getDate()); };
 				});
 		</script>
 
@@ -90,6 +90,6 @@
 
 		<a ng-click="prevMonth()">Prev Month</a> | <a ng-click="nextMonth()">Next Month</a>
 
-		<calendar for="startMonth" click="alertDay"></calendar>
+		<calendar for="startMonth" on-click="alertDay()"></calendar>
 	</body>
 </html>

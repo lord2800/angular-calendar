@@ -8,7 +8,7 @@ describe('Calendar Directive', function () {
 		local.date = new Date(2013, 0);
 		local.doSomething = jasmine.createSpy();
 
-		el = angular.element('<calendar for="date" on-click="doSomething"></calendar>');
+		el = angular.element('<calendar for="date" on-click="doSomething()"></calendar>');
 		$compile(el)(local);
 		local.$digest();
 		isolate = el.isolateScope();
@@ -111,6 +111,17 @@ describe('Calendar Directive', function () {
 	it('should pass clicks to the handler', function () {
 		local.doSomething.reset();
 		isolate.clickDay(1);
-		expect(local.doSomething).toHaveBeenCalledWith(1);
+		expect(local.doSomething).toHaveBeenCalled();
+	});
+
+	it('should mark the date passed in as active', function () {
+		local.date = new Date();
+		local.$digest();
+		expect(isolate.isSelected(local.date.getDate())).toBe(true);
+	});
+
+	it('should update the day passed in when selecting a day', function () {
+		isolate.clickDay(22);
+		expect(local.date.getDate()).toBe(22);
 	});
 });

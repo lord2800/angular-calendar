@@ -10,7 +10,7 @@ mod.directive('calendar', function ($locale) {
 	return {
 		restrict: 'E',
 		templateUrl: 'calendar.tmpl',
-		scope: { 'for': '=', options: '=', onClick: '=' },
+		scope: { 'for': '=', options: '=', onClick: '&' },
 		link: function (scope) {
 			scope.$watch('for', function () {
 				var date = scope['for'];
@@ -38,16 +38,16 @@ mod.directive('calendar', function ($locale) {
 				while(week.days.length < 7) {
 					week.days.push(undefined);
 				}
-			});
 
+				currentDay = (date instanceof Date) ? date.getDate() : 1;
+			});
 			var currentDay = 0;
 
 			scope.clickDay = function (day) {
 				if(day !== undefined) {
 					currentDay = day;
-					if(angular.isFunction(scope.onClick)) {
-						scope.onClick(day);
-					}
+					scope['for'].setDate(day);
+					scope.onClick();
 				}
 			};
 			scope.isSelected = function (day) {

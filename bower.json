@@ -21,13 +21,13 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.5"
+    "angular": "~1.2"
   },
   "devDependencies": {
-    "angular-i18n": "~1.2.5",
-    "angular-mocks": "~1.2.5"
+    "angular-i18n": "~1.2",
+    "angular-mocks": "~1.2"
   },
   "resolutions": {
-    "angular": "~1.2.5"
+    "angular": "~1.2"
   }
 }
