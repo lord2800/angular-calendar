@@ -12,17 +12,23 @@ mod.directive('calendar', function ($locale) {
 				start.setDate(1);
 				var nextMonth = (start.getMonth() + 1) % 12;
 
+				scope.days = {};
 				if(angular.isDefined(scope.options)) {
 					scope.month = scope.options.shortmonth ? $locale.DATETIME_FORMATS.SHORTMONTH[start.getMonth()] : $locale.DATETIME_FORMATS.MONTH[start.getMonth()];
-					scope.year = start.getFullYear();
-					scope.days = scope.options.shortday ? $locale.DATETIME_FORMATS.SHORTDAY : $locale.DATETIME_FORMATS.DAY;
+					if(scope.options.supershortday) {
+						angular.forEach($locale.DATETIME_FORMATS.SHORTDAY, function(value, key) {
+							scope.days[key] = value.substring(0, 2);
+						});
+					}
+					else {
+						scope.days = scope.options.shortday ? $locale.DATETIME_FORMATS.SHORTDAY : $locale.DATETIME_FORMATS.DAY;
+					}
 				}
 				else {
 					scope.month = $locale.DATETIME_FORMATS.MONTH[start.getMonth()];
-					scope.year = start.getFullYear();
 					scope.days = $locale.DATETIME_FORMATS.DAY;
 				}
-
+				scope.year = start.getFullYear();
 				scope.weeks = [ { days: [] } ];
 
 				var week = scope.weeks[0];

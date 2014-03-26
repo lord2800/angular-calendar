@@ -1,5 +1,5 @@
 describe('Calendar Directive', function () {
-	var el, local, isolate;
+	var el, el2, el3, local, isolate, isolate2, isolate3;
 
 	beforeEach(module('jh.calendar'));
 
@@ -10,11 +10,14 @@ describe('Calendar Directive', function () {
 
 		el = angular.element('<calendar for="date" on-click="doSomething()"></calendar>');
 		el2 = angular.element('<calendar for="date" on-click="doSomething()" options="{shortday: true, shortmonth: true}"></calendar>');
+		el3 = angular.element('<calendar for="date" on-click="doSomething()" options="{supershortday: true}"></calendar>');
 		$compile(el)(local);
 		$compile(el2)(local);
+		$compile(el3)(local);
 		local.$digest();
 		isolate = el.isolateScope();
 		isolate2 = el2.isolateScope();
+		isolate3 = el3.isolateScope();
 	}));
 
 	it('should set the month correctly', inject(function ($locale) {
@@ -31,6 +34,10 @@ describe('Calendar Directive', function () {
 
 	it('should display short day names when options.shortday is true', inject(function ($locale) {
 		expect(isolate2.days[0]).toBe($locale.DATETIME_FORMATS.SHORTDAY[0]);
+	}));
+
+	it('should display supershort day names when options.supershortday is true', inject(function ($locale) {
+		expect(isolate3.days[0]).toBe($locale.DATETIME_FORMATS.SHORTDAY[0].substring(0, 2));
 	}));
 
 	it('should use the current date if one not specified', function () {
