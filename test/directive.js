@@ -9,18 +9,29 @@ describe('Calendar Directive', function () {
 		local.doSomething = jasmine.createSpy();
 
 		el = angular.element('<calendar for="date" on-click="doSomething()"></calendar>');
+		el2 = angular.element('<calendar for="date" on-click="doSomething()" options="{shortday: true, shortmonth: true}"></calendar>');
 		$compile(el)(local);
+		$compile(el2)(local);
 		local.$digest();
 		isolate = el.isolateScope();
+		isolate2 = el2.isolateScope();
 	}));
 
 	it('should set the month correctly', inject(function ($locale) {
 		expect(isolate.month).toBe($locale.DATETIME_FORMATS.MONTH[0]);
 	}));
 
+	it('should display a short month name when options.shortmonth is true', inject(function ($locale) {
+		expect(isolate2.month).toBe($locale.DATETIME_FORMATS.SHORTMONTH[0]);
+	}));
+
 	it('should set the year correctly', function () {
 		expect(isolate.year).toBe(2013);
 	});
+
+	it('should display short day names when options.shortday is true', inject(function ($locale) {
+		expect(isolate2.days[0]).toBe($locale.DATETIME_FORMATS.SHORTDAY[0]);
+	}));
 
 	it('should use the current date if one not specified', function () {
 		local.date = null;
