@@ -12,7 +12,7 @@
         scope: {
           'for': '=',
           options: '=',
-          onClick: '='
+          onClick: '&'
         },
         link: function (scope) {
           scope.$watch('for', function () {
@@ -20,9 +20,21 @@
             var start = date instanceof Date && new Date(date.getTime()) || new Date();
             start.setDate(1);
             var nextMonth = (start.getMonth() + 1) % 12;
-            scope.month = $locale.DATETIME_FORMATS.MONTH[start.getMonth()];
+            scope.days = {};
+            if (angular.isDefined(scope.options)) {
+              scope.month = scope.options.shortmonth ? $locale.DATETIME_FORMATS.SHORTMONTH[start.getMonth()] : $locale.DATETIME_FORMATS.MONTH[start.getMonth()];
+              if (scope.options.supershortday) {
+                angular.forEach($locale.DATETIME_FORMATS.SHORTDAY, function (value, key) {
+                  scope.days[key] = value.substring(0, 2);
+                });
+              } else {
+                scope.days = scope.options.shortday ? $locale.DATETIME_FORMATS.SHORTDAY : $locale.DATETIME_FORMATS.DAY;
+              }
+            } else {
+              scope.month = $locale.DATETIME_FORMATS.MONTH[start.getMonth()];
+              scope.days = $locale.DATETIME_FORMATS.DAY;
+            }
             scope.year = start.getFullYear();
-            scope.days = $locale.DATETIME_FORMATS.DAY;
             scope.weeks = [{ days: [] }];
             var week = scope.weeks[0];
             do {
@@ -36,14 +48,14 @@
             while (week.days.length < 7) {
               week.days.push(undefined);
             }
+            currentDay = date instanceof Date ? date.getDate() : 1;
           });
           var currentDay = 0;
           scope.clickDay = function (day) {
             if (day !== undefined) {
               currentDay = day;
-              if (angular.isFunction(scope.onClick)) {
-                scope.onClick(day);
-              }
+              scope['for'].setDate(day);
+              scope.onClick();
             }
           };
           scope.isSelected = function (day) {
