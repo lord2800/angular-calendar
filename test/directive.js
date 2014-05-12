@@ -1,5 +1,5 @@
 describe('Calendar Directive', function () {
-	var el, el2, el3, local, isolate, isolate2, isolate3;
+	var el, el2, el3, el4, local, isolate, isolate2, isolate3, isolate4;
 
 	beforeEach(module('jh.calendar'));
 
@@ -7,17 +7,22 @@ describe('Calendar Directive', function () {
 		local = $rootScope.$new();
 		local.date = new Date(2013, 0);
 		local.doSomething = jasmine.createSpy();
+		local.isActiveDay = function (x) { return x === 3; };
+		local.isActiveWeek = function (x) { return x === 3; };
 
 		el = angular.element('<calendar for="date" on-click="doSomething()"></calendar>');
 		el2 = angular.element('<calendar for="date" on-click="doSomething()" options="{shortday: true, shortmonth: true}"></calendar>');
 		el3 = angular.element('<calendar for="date" on-click="doSomething()" options="{supershortday: true}"></calendar>');
+		el4 = angular.element('<calendar for="date" active-day="isActiveDay(day)" active-week="isActiveWeek(week)"></calendar>');
 		$compile(el)(local);
 		$compile(el2)(local);
 		$compile(el3)(local);
+		$compile(el4)(local);
 		local.$digest();
 		isolate = el.isolateScope();
 		isolate2 = el2.isolateScope();
 		isolate3 = el3.isolateScope();
+		isolate4 = el4.isolateScope();
 	}));
 
 	it('should set the month correctly', inject(function ($locale) {
@@ -99,14 +104,6 @@ describe('Calendar Directive', function () {
 		expect(isolate.year).toBe(now.getFullYear());
 	}));
 
-	it('should say a date is selected if it has been clicked', function () {
-		isolate.clickDay(1);
-		isolate.$digest();
-		expect(isolate.isSelected(1)).toBe(true);
-		expect(isolate.isSelected(2)).toBe(false);
-		expect(el.find('.week.first .day:nth-child(3)').hasClass('active')).toBe(true);
-	});
-
 	it('should ignore the handler if it\'s undefined', function () {
 		var spy = local.doSomething;
 		local.doSomething.reset();
@@ -118,12 +115,12 @@ describe('Calendar Directive', function () {
 	});
 
 	it('should ignore calls with an undefined day', function () {
-		isolate.clickDay(1);
 		local.doSomething.reset();
-		expect(isolate.isSelected(1)).toBe(true);
+		isolate.clickDay(1);
+		expect(local.doSomething).toHaveBeenCalled();
+		local.doSomething.reset();
 		isolate.clickDay(undefined);
 		expect(local.doSomething).not.toHaveBeenCalled();
-		expect(isolate.isSelected(1)).toBe(true);
 	});
 
 	it('should pass clicks to the handler', function () {
@@ -132,14 +129,15 @@ describe('Calendar Directive', function () {
 		expect(local.doSomething).toHaveBeenCalled();
 	});
 
-	it('should mark the date passed in as active', function () {
-		local.date = new Date();
-		local.$digest();
-		expect(isolate.isSelected(local.date.getDate())).toBe(true);
-	});
+	it('should mark a day/week as active based on the expression passed to activeDay/Week', function() {
+		expect(isolate4.isDayActive(1)).toBe(false);
+		expect(isolate4.isDayActive(3)).toBe(true);
+		expect(isolate4.isWeekActive(7)).toBe(false);
+		expect(isolate4.isWeekActive(3)).toBe(true);
 
-	it('should update the day passed in when selecting a day', function () {
-		isolate.clickDay(22);
-		expect(local.date.getDate()).toBe(22);
+		expect(el4.find('.week:nth-child(1)').hasClass('active')).toBe(false);
+		expect(el4.find('.week:nth-child(3)').hasClass('active')).toBe(true);
+		expect(el4.find('.week:nth-child(3) .day:nth-child(7)').hasClass('active')).toBe(false);
+		expect(el4.find('.week:nth-child(1) .day:nth-child(5)').hasClass('active')).toBe(true);
 	});
 });
