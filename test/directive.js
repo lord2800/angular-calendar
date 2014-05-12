@@ -10,7 +10,7 @@ describe('Calendar Directive', function () {
 		local.isActiveDay = function (x) { return x === 3; };
 		local.isActiveWeek = function (x) { return x === 3; };
 
-		el = angular.element('<calendar for="date" on-click="doSomething()"></calendar>');
+		el = angular.element('<calendar for="date" on-click="doSomething(day)"></calendar>');
 		el2 = angular.element('<calendar for="date" on-click="doSomething()" options="{shortday: true, shortmonth: true}"></calendar>');
 		el3 = angular.element('<calendar for="date" on-click="doSomething()" options="{supershortday: true}"></calendar>');
 		el4 = angular.element('<calendar for="date" active-day="isActiveDay(day)" active-week="isActiveWeek(week)"></calendar>');
@@ -125,8 +125,8 @@ describe('Calendar Directive', function () {
 
 	it('should pass clicks to the handler', function () {
 		local.doSomething.reset();
-		isolate.clickDay(1);
-		expect(local.doSomething).toHaveBeenCalled();
+		isolate.clickDay(17);
+		expect(local.doSomething).toHaveBeenCalledWith(17);
 	});
 
 	it('should mark a day/week as active based on the expression passed to activeDay/Week', function() {
