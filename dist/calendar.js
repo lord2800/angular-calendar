@@ -55,7 +55,7 @@ mod.directive('calendar', function ($locale) {
 
 			scope.clickDay = function (day) {
 				if(day !== undefined) {
-					scope.onClick({day: day});
+				return scope.onClick({day: day});
 				}
 			};
 			scope.isDayActive = function (day) {

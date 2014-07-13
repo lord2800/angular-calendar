@@ -1,11 +1,15 @@
 module.exports = function (grunt) {
-	['contrib-jshint', 'contrib-connect', 'contrib-concat', 'contrib-uglify', 'contrib-watch', 'contrib-clean', 'ngmin', 'karma', 'gh-pages', 'karma-coveralls'].forEach(function (mod) {
+	['contrib-jshint', 'contrib-connect','contrib-copy', 'contrib-cssmin', 'contrib-concat', 'contrib-uglify', 'contrib-watch', 'contrib-clean', 'ngmin', 'karma', 'gh-pages', 'karma-coveralls'].forEach(function (mod) {
 		grunt.loadNpmTasks('grunt-' + mod);
 	});
 
 	grunt.initConfig({
 		connect: { serve: { options: { port: 9000, keepalive: false, livereload: 23489, base: ['dist', '/tmp/calendar-coverage'], debug: true } } },
 		jshint: { options: { jshintrc: '.jshintrc' }, calendar: { files: [{ src: '{src,test}/*.js' }] } },
+		copy: { main: {expand: true, cwd: 'src/', src: ['*.css'], dest: 'dist/'} },
+		cssmin: {
+			minify: { expand: true, cwd: 'dist/', src: ['*.css', '!*.min.css'], dest: 'dist/', ext: '.min.css' }
+		},
 		concat: {
 			calendar: {
 				options: { banner: '(function () { "use strict";\n\n', footer: '\n})();' },
@@ -44,7 +48,7 @@ module.exports = function (grunt) {
 		coveralls: { options: { debug: true, coverage_dir: '/tmp/calendar-coverage' } },
 		watch: {
 			options: { atBegin: true, livereload: 23489 },
-			calendar: { files: ['src/*.js'], tasks: ['jshint', 'concat'] },
+			calendar: { files: ['src/*.js','src/*.css'], tasks: ['jshint', 'concat'] },
 			test: { files: ['test/*.js'], tasks: ['karma:unit'] },
 			livereload: { files: ['dist/*'], tasks: [] }
 		},
@@ -63,8 +67,8 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask('package', ['jshint', 'concat', 'ngmin', 'uglify']);
+	grunt.registerTask('package', ['jshint', 'concat', 'copy', 'cssmin', 'ngmin', 'uglify']);
 	grunt.registerTask('test', ['karma:unit']);
 	grunt.registerTask('docs', ['coveralls', 'gh-pages']);
-	grunt.registerTask('default', ['connect:serve', 'watch']);
+	grunt.registerTask('default', ['copy', 'cssmin', 'connect:serve', 'watch']);
 };
